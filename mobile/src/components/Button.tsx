@@ -5,31 +5,32 @@ interface Props extends IButtonProps {
     type?: 'PRIMARY' | 'SECONDARY';
 }
 
-export function Button({title, type = 'PRIMARY', ...rest}: Props) {
+export function Button({ title, type = 'PRIMARY', ...rest }: Props) {
     return (
-        <ButtonNatriveBase 
-        w="full"
-        h={14}
-        rounded="sm"
-        fontSize="md"
-        textTransform="uppercase"
-        bg={type === 'SECONDARY' ? 'red.500' : 'yellow.500'}
-        _pressed={{
-            bg: type === 'SECONDARY' ? 'red.600' : 'yellow.600'
-        }}
-        _loading = {{
-            _spinner: {color:'black'}
-        }}
+        <ButtonNatriveBase
 
-        {...rest}>
+            w="full"
+            h={14}
+            rounded="sm"
+            fontSize="md"
+            textTransform="uppercase"
+            bg={type === 'SECONDARY' ? 'red.500' : 'yellow.500'}
+            _pressed={{
+                bg: type === 'SECONDARY' ? 'red.600' : 'yellow.600'
+            }}
+            _loading={{
+                _spinner: { color: 'black' }
+            }}
+            {...rest}>
 
             <Text
-            fontSize="sm"
-            fontFamily="heading"
-            color={type === 'SECONDARY' ? 'white' : 'black'}
-            >
+                fontSize="sm"
+                fontFamily="heading"
+                color={type === 'SECONDARY' ? 'white' : 'black'}>
+
                 {title}
             </Text>
+
         </ButtonNatriveBase>
     );
 }
