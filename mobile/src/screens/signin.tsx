@@ -7,9 +7,7 @@ import Logo from '../assets/logo.svg';
 import { Button } from "../components/Button";
 
 export function SignIn() {
-
     const { signIn, user } = useAuth();
-    console.log('Dados do Usuaio => ', user);
 
     return (
         <Center flex={1} bgColor="gray.900" p={7}>
