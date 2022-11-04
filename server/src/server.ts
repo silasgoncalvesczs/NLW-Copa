@@ -1,5 +1,6 @@
 import Fastify from "fastify";
 import cors from '@fastify/cors';
+import jwt from '@fastify/jwt';
 
 import { poolRoutes } from "./routes/pool";
 import { authRoutes } from "./routes/auth";
@@ -16,6 +17,11 @@ async function bootstrap() {
     await fastify.register(cors, {
         //trocar para o dominio final de uso em produção
         origin: true,
+    })
+
+    // em producao isso precisa ser uma variavel ambiente
+    await fastify.register(jwt, {
+        secret: 'nlwcopa',
     })
 
     await fastify.register(poolRoutes)
