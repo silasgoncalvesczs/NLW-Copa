@@ -151,14 +151,15 @@ export async function poolRoutes(fastify: FastifyInstance) {
 
     fastify.get('/pools/:id', {
         onRequest: [authenticate],
-    }, async (request) => {
+    }, async (request, reply) => {
         const getPoolParams = z.object({
             id: z.string(),
         })
 
         const { id } = getPoolParams.parse(request.params)
 
-        const pool = await prisma.pool.findUnique({
+        // const pool = await prisma.pool.findUnique({
+        const pool = await prisma.pool.findFirst({
             include: {
                 _count: {
                     select: {
@@ -187,32 +188,38 @@ export async function poolRoutes(fastify: FastifyInstance) {
             where: {
                 id,
             },
-            include: {
-                _count: {
-                    select: {
-                        participants: true,
-                    }
-                },
-                participants: {
-                    select: {
-                        id: true,
+            // include: {
+            //     _count: {
+            //         select: {
+            //             participants: true,
+            //         }
+            //     },
+            //     participants: {
+            //         select: {
+            //             id: true,
 
-                        user: {
-                            select: {
-                                avatarUrl: true,
-                            }
-                        }
-                    },
-                    take: 4,
-                },
-                owner: {
-                    select: {
-                        id: true,
-                        nome: true,
-                    }
-                },
-            }
+            //             user: {
+            //                 select: {
+            //                     avatarUrl: true,
+            //                 }
+            //             }
+            //         },
+            //         take: 4,
+            //     },
+            //     owner: {
+            //         select: {
+            //             id: true,
+            //             nome: true,
+            //         }
+            //     },
+            // }
         })
+
+        if(!pool){
+            return reply.status(400).send({
+                message: 'Pool not found.'
+            })
+        }
 
         return { pool }
 
