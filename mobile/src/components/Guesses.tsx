@@ -55,6 +55,9 @@ export function Guesses({ poolId, code }: Props) {
         secondTeamPoints: Number(secondTeamPoints),
       });
 
+      setFirstTeamPoints(null)
+      setSecondTeamPoints(null)
+
       toast.show({
         title: 'Palpite realizado com sucesso',
         placement: 'top',
